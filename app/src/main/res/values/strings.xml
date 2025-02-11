@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Assistant</string>
+    <string name="click_me">Click Me</string>
+    <string name="take_a_picture">take a picture</string>
+</resources>
