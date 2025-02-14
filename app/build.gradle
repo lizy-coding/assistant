@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.assistant'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.assistant"
         minSdk 30
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -58,6 +58,7 @@ dependencies {
     implementation libs.androidx.material3
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
+    implementation project(':image_analysis')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -65,19 +66,16 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
+    // 相机组件
+    implementation libs.camera2.core
+    // 阿里通义SDK
+//    implementation libs.tongyi.sdk
+    // Retrofit 网络库
+    implementation libs.retrofit.core
+    implementation libs.retrofit.gson
+    // Activity Compose 集成
+    implementation libs.androidx.activity.compose
 
-    // 引入之前创建的 module
-    implementation project(":image_analysis")
-
-    // 替换为正确的相机库版本
-    implementation "androidx.camera.camera2:camera2:1.2.0"
-
-    // 确保填写正确的阿里通义 SDK 版本
-    implementation "com.alibaba.ai:ali-tongyi-sdk:1.0.0"
-
-
-
-    // Retrofit 和 Gson 转换器
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Compose BOM 物料清单
+    implementation platform("androidx.compose:compose-bom:${libs.versions.composeBom.get()}")
 }

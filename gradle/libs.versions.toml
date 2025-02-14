@@ -1,16 +1,19 @@
 [versions]
-agp = "8.6.0"
+agp = "8.6.1"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
+activityCompose = "1.10.0"
 composeBom = "2024.04.01"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.2.0"
+camera2 = "1.4.1"                  # 相机库最新版 (原1.2.0升级)
+#tongyiSdk = "2.3.0"                # 2024年最新稳定版
+retrofit = "2.9.0"                 # Retrofit官方最新版
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +33,13 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+# 相机组件
+camera2-core = { group = "androidx.camera", name = "camera-camera2", version.ref = "camera2" }
+# 阿里云服务
+#tongyi-sdk = { group = "com.alibaba.tongyi", name = "tongyi-sdk", version.ref = "tongyiSdk" }
+# 网络服务
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
