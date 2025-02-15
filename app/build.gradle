@@ -59,6 +59,8 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation project(':image_analysis')
+    implementation libs.androidx.camera.view
+    implementation libs.androidx.camera.lifecycle
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -66,16 +68,5 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
-    // 相机组件
-    implementation libs.camera2.core
-    // 阿里通义SDK
-//    implementation libs.tongyi.sdk
-    // Retrofit 网络库
-    implementation libs.retrofit.core
-    implementation libs.retrofit.gson
-    // Activity Compose 集成
-    implementation libs.androidx.activity.compose
 
-    // Compose BOM 物料清单
-    implementation platform("androidx.compose:compose-bom:${libs.versions.composeBom.get()}")
-}
+ }
