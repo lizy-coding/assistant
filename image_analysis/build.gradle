@@ -36,7 +36,7 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.camera.lifecycle
     implementation libs.camera.core
-    implementation libs.camera.core
+    implementation libs.camera.camera2
     implementation libs.androidx.camera.view
     implementation libs.androidx.lifecycle.common.jvm
     testImplementation libs.junit

@@ -1,0 +1,5 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- 自定义主题样式 -->
+    </style>
+</resources>
