@@ -18,6 +18,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
     }
 
     buildTypes {
@@ -35,6 +36,7 @@ android {
     }
     buildFeatures {
         compose true
+
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.1'
@@ -61,6 +63,7 @@ dependencies {
     implementation project(':image_analysis')
     implementation libs.androidx.camera.view
     implementation libs.androidx.camera.lifecycle
+
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -68,5 +71,6 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
+
 
  }

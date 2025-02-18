@@ -12,6 +12,10 @@ interface ApiService {
 }
 
 object RetrofitInstance {
+//    "ALIYUN_ACCESS_KEY_ID"
+//    "ALIYUN_ACCESS_KEY_SECRET"
+//    val accessKeyId = BuildConfig.ALIYUN_ACCESS_KEY_ID
+//    val accessKeySecret = BuildConfig.ALIYUN_ACCESS_KEY_SECRET
     val api: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl("https://your-ali-tongyi-api-url")

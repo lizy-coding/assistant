@@ -31,7 +31,7 @@ class CameraHandler(private val context: Context) {
 
             // 设置预览
             preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider) // 将预览与视图绑定
+                it.surfaceProvider = previewView.surfaceProvider // 将预览与视图绑定
             }
 
             // 选择后置摄像头

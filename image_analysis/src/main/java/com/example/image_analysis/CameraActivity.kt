@@ -1,7 +1,10 @@
 package com.example.image_analysis
+
 import CameraHandler
+import ImageParser
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +51,8 @@ class CameraActivity : AppCompatActivity() {
 
     private fun startCameraCapture() {
         // 获取存储路径（相册目录）
-        val storageDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp")
+        val storageDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AssistantPhoto")
+        Log.e("startCameraCapture", "storageDir=$storageDir")
 
         // 创建目录（如果不存在）
         if (!storageDir.exists()) {
@@ -58,8 +62,10 @@ class CameraActivity : AppCompatActivity() {
         cameraHandler.startCameraCapture(previewView, storageDir) { bitmap ->
             // 处理返回的 Bitmap
             lifecycleScope.launch {
-                // 这里可以处理 Bitmap，例如显示在 ImageView 中
-                Toast.makeText(this@CameraActivity, "Image captured and saved!", Toast.LENGTH_SHORT).show()
+                // 调用 ImageParser 进行图像解析
+                val imageParser = ImageParser()
+                val result = imageParser.parseImage(bitmap) // 解析图像
+                Toast.makeText(this@CameraActivity, "解析结果: $result", Toast.LENGTH_SHORT).show()
             }
         }
     }
