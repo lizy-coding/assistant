@@ -1,4 +1,7 @@
+package com.example.image_analysis
+
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import com.aliyun.imagerecog20190930.Client
@@ -15,8 +18,28 @@ class ImageParser {
     private val client: Client = createClient()
 
     suspend fun parseImage(bitmap: Bitmap): String {
-        val base64String = encodeBitmapToBase64(bitmap)
+        val compressedBitmap = compressBitmap(bitmap)
+        val base64String = encodeBitmapToBase64(compressedBitmap)
         return classifyImage(base64String)
+    }
+
+//    压缩图片
+    private fun compressBitmap(bitmap: Bitmap): Bitmap {
+        // Compress the bitmap to ensure it is under 3 MB
+        val maxFileSize = 3 * 1024 * 1024 // 3 MB
+        var quality = 100
+        var stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+
+        // Reduce quality until the size is under the limit
+        while (stream.toByteArray().size > maxFileSize && quality > 0) {
+            stream.reset() // Clear the stream
+            quality -= 10 // Decrease quality
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+        }
+
+        // Convert the stream back to a Bitmap
+        return BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size())
     }
 
     private fun encodeBitmapToBase64(bitmap: Bitmap): String {
@@ -52,9 +75,12 @@ class ImageParser {
     }
 
     private fun createClient(): Client {
+        val accessKeyId = BuildConfig.ALIYUN_ACCESS_KEY_ID.trim()
+        val accessKeySecret = BuildConfig.ALIYUN_ACCESS_KEY_SECRET.trim()
+        Log.i("ImageParser", "accessKeyId=$accessKeyId,  accessKeySecret=$accessKeySecret")
         val config = com.aliyun.teaopenapi.models.Config()
-            .setAccessKeyId(System.getenv("ALIYUN_ACCESS_KEY_ID"))
-            .setAccessKeySecret(System.getenv("ALIYUN_ACCESS_KEY_SECRET"))
+            .setAccessKeyId(accessKeyId)
+            .setAccessKeySecret(accessKeySecret)
             .setEndpoint("imagerecog.cn-shanghai.aliyuncs.com")
         return Client(config)
     }

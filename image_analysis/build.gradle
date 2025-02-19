@@ -13,21 +13,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-//        // 读取 local.properties 文件
-//        def localProperties = new Properties()
-//        def localPropertiesFile = rootProject.file("local.properties")
-//        localPropertiesFile.withInputStream { stream ->
-//            localProperties.load(stream)
-//        }
 //
-//        // 将变量添加到 buildConfigField
-//        buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"${localProperties['ALIYUN_ACCESS_KEY_ID']}\""
-//        buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET", "\"${localProperties['ALIYUN_ACCESS_KEY_SECRET']}\""
+        buildTypes {
+            release {
+                buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"LTAI5tDk95UDaLXP29tzkJSi\""
+                buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET", "\"E44iwB7UmpDnHt3hHrycX8oiPbwNsf\""
+            }
+            debug {
+                buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"LTAI5tDk95UDaLXP29tzkJSi\""
+                buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET", "\"E44iwB7UmpDnHt3hHrycX8oiPbwNsf\""
+            }
+        }
 
     }
-//    buildFeatures {
-//        buildConfig true // 启用 BuildConfig 字段
-//    }
+    buildFeatures {
+        buildConfig true // 启用 BuildConfig 字段
+    }
 
 
     buildTypes {
