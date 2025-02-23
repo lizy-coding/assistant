@@ -4,11 +4,13 @@ import CameraHandler
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.lifecycleScope
+import com.example.image_analysis.databinding.ActivityCameraBinding
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -16,11 +18,12 @@ class CameraActivity : AppCompatActivity() {
 
     private lateinit var cameraHandler: CameraHandler
     private lateinit var previewView: PreviewView
-
+    private lateinit var binding: ActivityCameraBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
-
+        binding = ActivityCameraBinding.inflate(layoutInflater) // 初始化绑定
+        setContentView(binding.root) // 必须调用
         // 初始化 PreviewView
         previewView = findViewById(R.id.previewView)
 
@@ -58,14 +61,29 @@ class CameraActivity : AppCompatActivity() {
             storageDir.mkdirs()
         }
 
+
         cameraHandler.startCameraCapture(previewView, storageDir) { bitmap ->
             // 处理返回的 Bitmap
             lifecycleScope.launch {
-                // 调用 ImageParser 进行图像解析
-                val imageParser = ImageParser()
-                val result = imageParser.parseImage(bitmap) // 解析图像
-                Toast.makeText(this@CameraActivity, "解析结果: $result", Toast.LENGTH_SHORT).show()
+                val ocrHelper = AliyunOcrHelper(this@CameraActivity)
+
+
+                // 显示加载状态
+                binding.progressBar.visibility = View.VISIBLE
+
+                // 执行OCR识别
+                val result = ocrHelper.recognizeBitmap(bitmap)
+//                var result = ""
+                Log.e("startCameraCapture", "recognizeBitmap.result=$result")
+                // 显示结果
+                binding.ocrResultText.text = result
+                Toast.makeText(
+                    this@CameraActivity,
+                    "识别成功：${result.lines().firstOrNull()}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 }
+

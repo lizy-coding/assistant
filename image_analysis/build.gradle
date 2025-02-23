@@ -13,7 +13,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-//
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
         buildTypes {
             release {
                 buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"LTAI5tDk95UDaLXP29tzkJSi\""
@@ -28,6 +29,7 @@ android {
     }
     buildFeatures {
         buildConfig true // 启用 BuildConfig 字段
+        viewBinding true // 启用视图绑定
     }
 
 
@@ -62,15 +64,33 @@ dependencies {
     implementation libs.retrofit.core
     implementation libs.retrofit.gson
     implementation libs.okhttp
-//    implementation libs.java.sdk
+    implementation (libs.multidex)
+
     implementation (libs.image.sdk) {
-        exclude group: 'com.sun.istack', module: 'istack-commons-runtime'
-        exclude group: 'javax.xml.bind', module: 'jaxb-api'
+        exclude group: 'com.aliyun', module: 'aliyun-java-sdk-oss' // 排除冲突模块
+        exclude group: 'org.apache.httpcomponents' // 使用 OkHttp 替代
+        exclude group: 'org.bouncycastle'
         exclude group: 'pull-parser', module: 'pull-parser'
         exclude group: 'xml-apis', module: 'xml-apis'
-        exclude group: 'dom4j', module: 'dom4j'
+        exclude group: 'javax.xml.stream', module: 'stax-api'
+        exclude group: 'xpp3', module: 'xpp3'
     }
 
+
+//    implementation (libs.java.sdk) {
+//        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+//        exclude group: 'org.bouncycastle', module: 'bcprov-jdk16'
+//        exclude group: 'com.sun.istack', module: 'istack-commons-runtime'
+//        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+//        exclude group: 'org.glassfish.jaxb', module: 'txw2'
+//        exclude group: 'pull-parser', module: 'pull-parser'
+//        exclude group: 'xml-apis', module: 'xml-apis'
+//    }
+//    implementation (libs.xercesImpl)
+//    implementation (libs.xercesImpl)
+//    implementation (libs.jaxb.api)
+//    implementation (libs.jaxb.core)
+//    implementation (libs.jaxb.impl)
 
 
 }

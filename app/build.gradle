@@ -33,6 +33,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-Xjvm-default=all"
     }
     buildFeatures {
         compose true
@@ -46,6 +47,20 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    packagingOptions {
+        // 直接移除冲突的 JAR
+        exclude '**/pull-parser-2.jar'
+        exclude '**/xpp3-1.1.4c.jar'
+        exclude 'META-INF/services/javax.xml.parsers.*'
+    }
+
+    allprojects {
+        repositories {
+            google() // 必须添加
+            mavenCentral() // 必须添加
+        }
+    }
+
 }
 
 dependencies {
@@ -61,16 +76,27 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation project(':image_analysis')
-    implementation libs.androidx.camera.view
-    implementation libs.androidx.camera.lifecycle
-
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
-    androidTestImplementation platform(libs.androidx.compose.bom)
-    androidTestImplementation libs.androidx.ui.test.junit4
-    debugImplementation libs.androidx.ui.tooling
-    debugImplementation libs.androidx.ui.test.manifest
+//    implementation libs.jaxb.runtime
+//    implementation libs.txw2
+//    implementation libs.jaxb.api
 
 
  }
+
+// 项目根目录/build.gradle
+allprojects {
+    configurations.configureEach {
+        resolutionStrategy {
+            // 强制使用正确的版本
+            force 'xml-apis:xml-apis:1.4.01'
+            force 'xerces:xercesImpl:2.12.2'  // 不使用 `using()`，而是 `force`
+            force 'xpp3:xpp3:1.1.4c'
+            // 保留其他强制版本规则
+            force 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+            force 'com.sun.xml.bind:jaxb-core:4.0.5'
+            force 'org.glassfish.jaxb:txw2:4.0.5'
+        }
+    }
+
+}
+
