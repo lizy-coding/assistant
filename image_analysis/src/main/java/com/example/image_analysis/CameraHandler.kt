@@ -11,7 +11,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-//import com.example.image_analysis.AliyunOcrHelper
+//import com.example.image_analysis.server.AliyunOcrHelper
 import java.io.File
 
 class CameraHandler(private val context: Context) {

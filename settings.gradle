@@ -9,7 +9,15 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-        jcenter()
+        // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+            allowInsecureProtocol = true  // 允许 HTTP
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+            allowInsecureProtocol = true
+        }
     }
 
 

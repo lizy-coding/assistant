@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.lifecycleScope
 import com.example.image_analysis.databinding.ActivityCameraBinding
+import com.example.image_analysis.server.AliyunOcrHelper
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -72,14 +73,14 @@ class CameraActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
 
                 // 执行OCR识别
-                val result = ocrHelper.recognizeBitmap(bitmap)
+                val result = ocrHelper.recognizeBankCardFromBitmap(bitmap)
 //                var result = ""
                 Log.e("startCameraCapture", "recognizeBitmap.result=$result")
                 // 显示结果
                 binding.ocrResultText.text = result
                 Toast.makeText(
                     this@CameraActivity,
-                    "识别成功：${result.lines().firstOrNull()}",
+                    "识别成功：${result}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
