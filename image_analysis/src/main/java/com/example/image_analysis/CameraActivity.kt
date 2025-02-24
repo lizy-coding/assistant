@@ -1,17 +1,18 @@
 package com.example.image_analysis
 
 import CameraHandler
+import OcrModel
+import OcrService
+import TextRecognitionResult
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.lifecycleScope
 import com.example.image_analysis.databinding.ActivityCameraBinding
-import com.example.image_analysis.server.AliyunOcrHelper
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -66,23 +67,33 @@ class CameraActivity : AppCompatActivity() {
         cameraHandler.startCameraCapture(previewView, storageDir) { bitmap ->
             // 处理返回的 Bitmap
             lifecycleScope.launch {
-                val ocrHelper = AliyunOcrHelper(this@CameraActivity)
+                val ocrServer = OcrService
 
 
                 // 显示加载状态
                 binding.progressBar.visibility = View.VISIBLE
 
                 // 执行OCR识别
-                val result = ocrHelper.recognizeBankCardFromBitmap(bitmap)
-//                var result = ""
+                val result: Result<TextRecognitionResult> = ocrServer.recognize<TextRecognitionResult>(
+                    bitmap = bitmap,
+                    model = OcrModel.GENERAL_TEXT,
+                    config = OcrConfig.TextConfig(
+                        minTextHeight = 10,  // Example value
+                        maxSizeMB = 1,    // Example value
+                        minQuality = 80      // Example value
+                    ),
+                    onError = { errorMessage ->
+                        println("Error occurred: $errorMessage")
+                    }
+                )
                 Log.e("startCameraCapture", "recognizeBitmap.result=$result")
-                // 显示结果
-                binding.ocrResultText.text = result
-                Toast.makeText(
-                    this@CameraActivity,
-                    "识别成功：${result}",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                // 显示结果
+//                binding.ocrResultText.text = result.content
+//                Toast.makeText(
+//                    this@CameraActivity,
+//                    "识别成功：${result}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         }
     }
