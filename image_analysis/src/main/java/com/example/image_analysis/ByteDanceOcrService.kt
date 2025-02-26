@@ -18,15 +18,15 @@
 //                val response = client.classifyingRubbishWithOptions(request, options)
 //
 //                // Process the response
-//                Log.d("OcrService", "Response: ${com.aliyun.teautil.Common.toJSONString(TeaModel.buildMap(response))}")
+//                Log.d("com.example.image_analysis.server.OcrService", "Response: ${com.aliyun.teautil.Common.toJSONString(TeaModel.buildMap(response))}")
 //                response.toString() // Process according to the actual return type
 //            } catch (error: TeaException) {
 //                // Error handling
-//                Log.e("OcrService", "TeaException: ${error.message}, Code: ${error.code}")
+//                Log.e("com.example.image_analysis.server.OcrService", "TeaException: ${error.message}, Code: ${error.code}")
 //                "Error: ${error.message}"
 //            } catch (e: Exception) {
 //                // Other exception handling
-//                Log.e("OcrService", "Exception: ${e.message}", e) // Log the stack trace
+//                Log.e("com.example.image_analysis.server.OcrService", "Exception: ${e.message}", e) // Log the stack trace
 //                "Error: ${e.message}"
 //            }
 //        }

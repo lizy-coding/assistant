@@ -1,21 +1,47 @@
+package com.example.image_analysis.server
+
+import OcrConfig
+import OcrModel
 import android.graphics.Bitmap
+import android.util.Log
+import autoRotate
+import binarize
 import com.aliyun.tea.TeaException
+import cropCardArea
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
 object OcrService {
-    suspend fun <T : Any> recognize(
+    suspend inline fun <reified T : Any> recognize(
         bitmap: Bitmap,
         model: OcrModel,
         config: OcrConfig,
-        onError: (String) -> Unit
-    ): Result<T> = when (model) {
-        OcrModel.BANK_CARD -> processBankCard(bitmap, config as OcrConfig.BankCardConfig, onError) as Result<T>
-        OcrModel.GENERAL_TEXT -> processText(bitmap, config as OcrConfig.TextConfig, onError) as Result<T>
+        noinline onError: (String) -> Unit
+    ): Result<T> {
+        Log.d("startCameraCapture.OcrService.recognize", "model=$model")
+        return when (model) {
+            OcrModel.BANK_CARD -> {
+                if (T::class == BankCardResult::class) {
+                    // Directly cast the result to the correct type
+                    processBankCard(bitmap, config as OcrConfig.BankCardConfig, onError).map { it as T }
+                } else {
+                    Result.failure(IllegalArgumentException("Invalid type for BankCard model"))
+                }
+            }
+            OcrModel.GENERAL_TEXT -> {
+                if (T::class == TextRecognitionResult::class) {
+                    // Directly cast the result to the correct type
+                    processText(bitmap, config as OcrConfig.TextConfig, onError).map { it as T }
+                } else {
+                    Result.failure(IllegalArgumentException("Invalid type for Text model"))
+                }
+            }
+        }
     }
 
-    private suspend fun processBankCard(
+
+    suspend fun processBankCard(
         bitmap: Bitmap,
         config: OcrConfig.BankCardConfig,
         onError: (String) -> Unit
@@ -36,7 +62,7 @@ object OcrService {
         onError
     )
 
-    private suspend fun processText(
+    suspend fun processText(
         bitmap: Bitmap,
         config: OcrConfig.TextConfig,
         onError: (String) -> Unit
@@ -51,7 +77,7 @@ object OcrService {
                 maxSizeMB = config.maxSizeMB,
                 quality = config.minQuality
             )
-
+            Log.d("startCameraCapture.OcrService.recognize.processText", "config=$config")
             AliyunClient.recognizeText(byteArray, config)
         },
         onError
@@ -64,6 +90,7 @@ object OcrService {
     ): Result<T> = try {
         Result.success(block())
     } catch (e: Exception) {
+        Log.d("startCameraCapture", "ocrService safeApiCall: ${e.message} ${e.stackTrace}")
         val msg = when (e) {
             is TeaException -> mapTeaError(e)
             is ImageProcessingException -> e.userMessage
@@ -91,7 +118,7 @@ fun Bitmap.scaleToMinHeight(minHeight: Int): Bitmap {
     return this
 }
 
-fun Bitmap.toValidatedJpeg(maxSizeMB: Int, quality: Int): ByteArray {
+fun Bitmap.toValidatedJpeg(maxSizeMB: Double, quality: Int): ByteArray {
     val outputStream = ByteArrayOutputStream()
     var currentQuality = quality
     var byteArray: ByteArray

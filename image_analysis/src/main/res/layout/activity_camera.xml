@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:padding="16dp"
+        android:text="doing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

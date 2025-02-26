@@ -1,4 +1,8 @@
+package com.example.image_analysis.server
+
+import OcrConfig
 import android.graphics.Rect
+import android.util.Log
 import com.aliyun.ocr20191230.Client
 import com.aliyun.ocr20191230.models.RecognizeBankCardAdvanceRequest
 import com.aliyun.ocr20191230.models.RecognizeCharacterAdvanceRequest
@@ -43,6 +47,7 @@ object AliyunClient {
 
     // 文字识别
     fun recognizeText(imageData: ByteArray, config: OcrConfig.TextConfig): TextRecognitionResult {
+        Log.d("startCameraCapture", "recognizeText invoked")
         return try {
             ByteArrayInputStream(imageData).use { stream ->
                 val request = RecognizeCharacterAdvanceRequest().apply {
@@ -50,8 +55,10 @@ object AliyunClient {
                     minHeight = config.minTextHeight
                     outputProbability = config.outputProbability
                 }
-
+                Log.d("startCameraCapture", "before recognizeCharacterAdvance")
                 client.recognizeCharacterAdvance(request, RuntimeOptions()).body.data.let { data ->
+                    Log.d("startCameraCapture", "OcrService.recognize.processText.recognizeText data=$data")
+
                     val textRegions = data?.results?.map { result ->
                         val rect = result.textRectangles
                         TextRecognitionResult.TextRegion(
@@ -77,16 +84,17 @@ object AliyunClient {
             handleTeaException(e)
             TextRecognitionResult.EMPTY
         } catch (e: Exception) {
-            println("Unexpected error: ${e.message}")
+            handleTeaException(e)
             TextRecognitionResult.EMPTY
         }
     }
 
 
 
-    private fun handleTeaException(e: TeaException) {
+    private fun handleTeaException(e: Exception) {
         // Log the error and handle it appropriately
-        println("Error: ${e.message}, Code: ${e.code}")
+        Log.d("AliyunClient", "handleTeaException : ${e.message}: $e \n${e.stackTrace.joinToString { "\n" }}")
+        e.printStackTrace()
     }
 }
 

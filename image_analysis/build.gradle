@@ -46,6 +46,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
     repositories {
@@ -104,6 +105,8 @@ dependencies {
         exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
     }
+
+//    implementation(libs.logback.classic) // Or the latest version
 
 
 //    implementation (libs.java.sdk) {
