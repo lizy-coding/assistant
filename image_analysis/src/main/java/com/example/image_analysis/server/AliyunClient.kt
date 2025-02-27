@@ -1,22 +1,33 @@
 package com.example.image_analysis.server
 
 import OcrConfig
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.util.Log
 import com.aliyun.ocr20191230.Client
 import com.aliyun.ocr20191230.models.RecognizeBankCardAdvanceRequest
 import com.aliyun.ocr20191230.models.RecognizeCharacterAdvanceRequest
 import com.aliyun.tea.TeaException
+import com.aliyun.tea.TeaRetryableException
+import com.aliyun.tea.TeaUnretryableException
+import com.aliyun.teaopenapi.models.Config
 import com.aliyun.teautil.models.RuntimeOptions
+import com.example.image_analysis.BuildConfig
 import java.io.ByteArrayInputStream
+import java.io.IOException
 
 object AliyunClient {
     private val client by lazy {
+
+        val accessKeyId = BuildConfig.ALIYUN_ACCESS_KEY_ID
+        val accessKeySecret = BuildConfig.ALIYUN_ACCESS_KEY_SECRET
+
+        Log.d("startCameraCapture:client", "ALIYUNACCESSKEYID=$accessKeyId, ALIYUNACCESSKEYIDSECRET=$accessKeySecret ")
         Client(
-            com.aliyun.teaopenapi.models.Config()
-                .setAccessKeyId(System.getenv("ALIYUN_ACCESS_KEY_ID") ?: "your-access-key")
-                .setAccessKeySecret(System.getenv("ALIYUN_ACCESS_KEY_SECRET") ?: "your-secret-key")
-                .setEndpoint("ocr-api.cn-hangzhou.aliyuncs.com")
+            Config()
+                .setAccessKeyId(accessKeyId)
+                .setAccessKeySecret(accessKeySecret)
+                .setEndpoint("ocr.cn-shanghai.aliyuncs.com")
         )
     }
 
@@ -38,63 +49,98 @@ object AliyunClient {
             }
         } catch (e: TeaException) {
             handleTeaException(e)
-            BankCardResult("", "")
+            BankCardResult.EMPTY
         } catch (e: Exception) {
-            println("Unexpected error: ${e.message}")
-            BankCardResult("", "")
+            Log.d("startCameraCapture", "Unexpected error: ${e.message}")
+            BankCardResult.EMPTY
         }
     }
 
     // 文字识别
     fun recognizeText(imageData: ByteArray, config: OcrConfig.TextConfig): TextRecognitionResult {
-        Log.d("startCameraCapture", "recognizeText invoked")
+
+        if (!isValidImage(imageData)) {
+            Log.e("startCameraCapture OCR_VALIDATE", "Invalid image format/size")
+            return TextRecognitionResult.EMPTY
+        }
         return try {
             ByteArrayInputStream(imageData).use { stream ->
                 val request = RecognizeCharacterAdvanceRequest().apply {
-                    imageURLObject = stream
+                    setImageURLObject(stream) // 使用正确的方法设置流
                     minHeight = config.minTextHeight
                     outputProbability = config.outputProbability
                 }
-                Log.d("startCameraCapture", "before recognizeCharacterAdvance")
-                client.recognizeCharacterAdvance(request, RuntimeOptions()).body.data.let { data ->
-                    Log.d("startCameraCapture", "OcrService.recognize.processText.recognizeText data=$data")
+                Log.d("startCameraCapture OCR_DEBUG", "Request: ${request.toMap()}")
+                val response = client.recognizeCharacterAdvance(request, RuntimeOptions().apply {
+                    readTimeout = 30000
+                    connectTimeout = 10000
+                })
+                // 打印请求详情
 
-                    val textRegions = data?.results?.map { result ->
-                        val rect = result.textRectangles
+
+                Log.d("startCameraCapture OCR_DEBUG", "response: ${response.toMap()}")
+
+                response.body.data?.results?.mapNotNull { result ->
+                    result.text?.let { text ->
                         TextRecognitionResult.TextRegion(
-                            text = result.text,  // Adjust field name based on actual result structure
-                            probability = result.probability,  // Adjust field name based on actual result structure
-                            boundingBox = Rect(
-                                rect.left,
-                                rect.top,
-                                rect.left + rect.width,
-                                rect.top + rect.height
-                            )
+                            text = text,
+                            probability = result.probability ?: 0.0f,
+                            boundingBox = result.textRectangles?.let { rect ->
+                                Rect(rect.left, rect.top, rect.left + rect.width, rect.top + rect.height)
+                            } ?: Rect()
                         )
-                    } ?: emptyList()
-
+                    }
+                }?.let { regions ->
                     TextRecognitionResult(
-                        content = textRegions.joinToString(" ") { it.text },
-                        confidence = textRegions.map { it.probability }.average(),
-                        textRegions = textRegions
+                        content = regions.joinToString(" ") { it.text },
+                        confidence = regions.map { it.probability }.average(),
+                        textRegions = regions
                     )
-                }
+                } ?: TextRecognitionResult.EMPTY
             }
-        } catch (e: TeaException) {
+        } catch (e: com.aliyun.tea.TeaException) {
             handleTeaException(e)
             TextRecognitionResult.EMPTY
-        } catch (e: Exception) {
-            handleTeaException(e)
+        } catch (e: IOException) {
+            Log.e("OcrService", "IO异常", e)
             TextRecognitionResult.EMPTY
         }
     }
 
 
 
-    private fun handleTeaException(e: Exception) {
-        // Log the error and handle it appropriately
-        Log.d("AliyunClient", "handleTeaException : ${e.message}: $e \n${e.stackTrace.joinToString { "\n" }}")
-        e.printStackTrace()
+    private fun handleTeaException(e: Throwable) {
+        when (e) {
+            is TeaUnretryableException -> {
+
+                Log.d("AliyunClient", "不可重试异常，原始错误响应: ${e.message}")
+//                e.rawResponse?.let {
+//                    Log.d("AliyunClient", "原始错误响应: ${String(it)}")
+//                }
+            }
+            is TeaRetryableException -> {
+
+                Log.w("AliyunClient", "可重试异常，原始错误响应: $e")
+            }
+            else -> {
+                Log.e("AliyunClient", "未分类异常", e)
+            }
+        }
+    }
+}
+
+private fun isValidImage(data: ByteArray): Boolean {
+    return try {
+        val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        BitmapFactory.decodeByteArray(data, 0, data.size, options)
+        // 检查格式和尺寸
+        when (options.outMimeType) {
+            "image/jpeg", "image/png" -> {}
+            else -> return false
+        }
+        data.size <= 3 * 1024 * 1024 // 不超过3MB
+    } catch (e: Exception) {
+        false
     }
 }
 
@@ -104,12 +150,6 @@ data class TextRecognitionResult(
     val confidence: Double,
     val textRegions: List<TextRegion>
 ) {
-    data class TextRegion(
-        val text: String,
-        val probability: Float,
-        val boundingBox: Rect
-    )
-
     companion object {
         val EMPTY = TextRecognitionResult(
             content = "",
@@ -117,8 +157,13 @@ data class TextRecognitionResult(
             textRegions = emptyList()
         )
     }
-}
 
+    data class TextRegion(
+        val text: String,
+        val probability: Float,
+        val boundingBox: Rect
+    )
+}
 // 银行卡识别结果结构
 data class BankCardResult(
     val cardNumber: String,
@@ -130,5 +175,12 @@ data class BankCardResult(
         require(cardNumber.isEmpty() || cardNumber.matches("\\d{13,19}".toRegex())) {
             "无效的银行卡号格式"
         }
+    }
+
+    companion object {
+        val EMPTY = BankCardResult(
+            cardNumber = "",
+            validDate = ""
+        )
     }
 }

@@ -15,18 +15,16 @@ android {
 
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true
-        buildTypes {
-            release {
-                buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"LTAI5tDk95UDaLXP29tzkJSi\""
-                buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET", "\"E44iwB7UmpDnHt3hHrycX8oiPbwNsf\""
-            }
-            debug {
-                buildConfigField "String", "ALIYUN_ACCESS_KEY_ID", "\"LTAI5tDk95UDaLXP29tzkJSi\""
-                buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET", "\"E44iwB7UmpDnHt3hHrycX8oiPbwNsf\""
-            }
-        }
+        // 添加密钥配置
+        buildConfigField "String", "ALIYUN_ACCESS_KEY_ID",
+                "\"${getLocalProperty("aliyun.ak.id")}\""
 
+        buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET",
+                "\"${getLocalProperty("aliyun.ak.secret")}\""
     }
+
+
+
     buildFeatures {
         buildConfig true // 启用 BuildConfig 字段
         viewBinding true // 启用视图绑定
@@ -126,3 +124,30 @@ dependencies {
 
 
 }
+def getLocalProperty(key) {
+    def localFile = project.rootProject.file("local.properties")
+    if (!localFile.exists()) {
+        throw new FileNotFoundException("local.properties文件未找到，路径：${localFile.absolutePath}")
+    }
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(localFile))
+    return localProperties.getProperty(key, "")
+}
+
+// 添加至文件末尾
+task printAliyunConfig {
+    doLast {
+        def id = android.defaultConfig.buildConfigFields.get("ALIYUN_ACCESS_KEY_ID")?.value
+        def secret = android.defaultConfig.buildConfigFields.get("ALIYUN_ACCESS_KEY_SECRET")?.value
+
+        println "模块配置验证："
+        println "AccessKey ID   : ${id?.replaceAll('.', '*')}" // 安全脱敏显示
+        println "AccessKey Secret: ${secret?.replaceAll('.', '*')}"
+        println "ID长度: ${id?.length() ?: 0}"
+        println "Secret长度: ${secret?.length() ?: 0}"
+    }
+
+}
+
+
