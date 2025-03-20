@@ -57,6 +57,7 @@ class CameraHandler(private val context: Context) {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // 处理保存的图像
                     val bitmap = BitmapFactory.decodeFile(outputFile.absolutePath)
+                    Log.e("CameraHandler", "outputFile.absolutePath=${outputFile.absolutePath}")
                     onImageAvailable(bitmap)
 
                     // 通知媒体库更新

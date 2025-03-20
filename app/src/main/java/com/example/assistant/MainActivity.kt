@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        System.setProperty("file.encoding", "UTF-8")
         val enterCameraButton: Button = findViewById(R.id.enterCameraButton)
         val exitButton: Button = findViewById(R.id.exitButton)
 

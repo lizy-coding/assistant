@@ -26,4 +26,5 @@ pluginManagement {
 rootProject.name = "Assistant"
 include ':app'
 include ':image_analysis'
+include ':speech_recognition'
 

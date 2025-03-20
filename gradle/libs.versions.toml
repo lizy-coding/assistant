@@ -24,6 +24,9 @@ multidex = "2.0.1"
 imagerecog20190930 = "2.0.1"
 exifinterface = "1.4.0"
 
+#百度
+speechrecognition = "16.0.0"
+
 
 
 [libraries]
@@ -66,6 +69,8 @@ androidx-lifecycle-common-jvm = { group = "androidx.lifecycle", name = "lifecycl
 # 拓展插件
 multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
+
+mlkit-speech-recognition = { group = "com.google.mlkit", name = "speech-recognition", version = "speechrecognition" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -151,8 +151,8 @@ class CameraActivity : AppCompatActivity() {
                     "startCameraCapture",
                     "recognizeBitmap.result=${result.isSuccess} ${result.isFailure}  ${result.getOrNull() ?: noData}"
                 )
-//                // 显示结果
-                binding.ocrResultText.text = result.getOrNull()?.content
+                // 显示结果
+                binding.ocrResultText.text = result.getOrNull().toString()
                 Toast.makeText(
                     this@CameraActivity,
                     "识别成功：${result}",

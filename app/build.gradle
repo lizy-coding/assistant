@@ -79,6 +79,7 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.dom4j
     implementation project(':image_analysis')
+    implementation project(':speech_recognition')
 //    implementation libs.jaxb.runtime
 //    implementation libs.txw2
 //    implementation libs.jaxb.api
