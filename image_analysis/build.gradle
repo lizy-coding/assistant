@@ -8,10 +8,28 @@ android {
     compileSdk 35
 
     defaultConfig {
-        minSdk 24
+        minSdk 30
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
+        // 添加密钥配置
+        buildConfigField "String", "ALIYUN_ACCESS_KEY_ID",
+                "\"${getLocalProperty("aliyun.ak.id")}\""
+
+        buildConfigField "String", "ALIYUN_ACCESS_KEY_SECRET",
+                "\"${getLocalProperty("aliyun.ak.secret")}\""
     }
+
+
+
+    buildFeatures {
+        buildConfig true // 启用 BuildConfig 字段
+        viewBinding true // 启用视图绑定
+    }
+
 
     buildTypes {
         release {
@@ -20,59 +38,92 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
-    
-    // 添加 buildFeatures 以启用 BuildConfig
-    buildFeatures {
-        buildConfig true
-    }
+
 }
+
+    repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+        // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+            allowInsecureProtocol = true  // 允许 HTTP
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+            allowInsecureProtocol = true
+        }
+    }
+
+
+
+
 
 dependencies {
-    // 基础库
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    
-    // CameraX 依赖
-    implementation(libs.camera.core)
-    implementation(libs.camera.camera2)
-    implementation(libs.androidx.camera.lifecycle)
-    implementation(libs.androidx.camera.view)
-    implementation(libs.androidx.lifecycle.common.jvm)
-    implementation(libs.androidx.exifinterface)
-    
-    // 网络相关
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.gson)
-    implementation(libs.okhttp)
-    
-    // 阿里云图像识别
-    implementation(libs.image.sdk)
-    
-    // 解决 XML 库冲突
-    implementation(libs.dom4j)
-    
-    // 测试依赖
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    
-    // 配置冲突解决
-    configurations.all {
-        // 排除冲突的 XML 相关库
-        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
-        exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
-        exclude group: 'xml-apis', module: 'xml-apis'
-    }
-}
 
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.camera.lifecycle
+    implementation libs.camera.core
+    implementation libs.camera.camera2
+    implementation libs.androidx.camera.view
+    implementation libs.androidx.lifecycle.common.jvm
+    implementation libs.androidx.exifinterface
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+    implementation libs.retrofit.core
+    implementation libs.retrofit.gson
+    implementation libs.okhttp
+    implementation (libs.multidex)
+
+    implementation (libs.image.sdk) {
+        exclude group: 'com.aliyun', module: 'aliyun-java-sdk-oss' // 排除冲突模块
+        exclude group: 'org.apache.httpcomponents' // 使用 OkHttp 替代
+        exclude group: 'org.bouncycastle'
+        exclude group: 'pull-parser', module: 'pull-parser'
+        exclude group: 'xml-apis', module: 'xml-apis'
+        exclude group: 'javax.xml.stream', module: 'stax-api'
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'dom4j', module: 'dom4j'
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+    }
+
+//    implementation(libs.logback.classic) // Or the latest version
+
+
+//    implementation (libs.java.sdk) {
+//        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+//        exclude group: 'org.bouncycastle', module: 'bcprov-jdk16'
+//        exclude group: 'com.sun.istack', module: 'istack-commons-runtime'
+//        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+//        exclude group: 'org.glassfish.jaxb', module: 'txw2'
+//        exclude group: 'pull-parser', module: 'pull-parser'
+//        exclude group: 'xml-apis', module: 'xml-apis'
+//    }
+//    implementation (libs.xercesImpl)
+//    implementation (libs.xercesImpl)
+//    implementation (libs.jaxb.api)
+//    implementation (libs.jaxb.core)
+//    implementation (libs.jaxb.impl)
+
+
+}
 def getLocalProperty(key) {
     def localFile = project.rootProject.file("local.properties")
     if (!localFile.exists()) {
@@ -96,6 +147,7 @@ task printAliyunConfig {
         println "ID长度: ${id?.length() ?: 0}"
         println "Secret长度: ${secret?.length() ?: 0}"
     }
+
 }
 
 
