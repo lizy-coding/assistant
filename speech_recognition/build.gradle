@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.example.speech_recognition'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         minSdk 24
@@ -35,9 +35,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     
-    // 语音识别相关依赖
+    // 正确的语音识别依赖
     implementation(libs.mlkit.speech.recognition)
-    // 注意: 不要同时添加 com.google.android.gms:play-services-mlkit-language-id，避免依赖冲突
     
     // Firebase 相关
     implementation(libs.firebase.firestore.ktx)
@@ -46,6 +45,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    
+    // 如果有本地 AAR 文件，使用这种方式
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     
     // 配置冲突解决
     configurations.all {
@@ -56,8 +58,4 @@ dependencies {
         // 排除语言识别冲突
         exclude group: 'com.google.android.gms', module: 'play-services-mlkit-language-id'
     }
-    
-    // 百度语音识别依赖
-    // 如果有本地依赖，使用下面的方式
-    // implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 } 
