@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <!-- 网络增强权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,5 +15,13 @@
     <!-- Android 13+新增权限 -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <application>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="false"
+            android:label="图像识别"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+    </application>
 
 </manifest>

@@ -1,40 +1,53 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// 简化的 build.gradle 文件
 buildscript {
-
-    
     ext {
         kotlin_version = '1.8.21'  // 根据需要调整 Kotlin 版本
     }
 
-        repositories {
-            google {
-                content {
-                    includeGroupByRegex("com\\.android.*")
-                    includeGroupByRegex("com\\.google.*")
-                    includeGroupByRegex("androidx.*")
-                }
-            }
-            mavenCentral()
-            gradlePluginPortal()
-            // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
-            maven {
-                url "https://maven.aliyun.com/repository/public"
-                allowInsecureProtocol = true  // 允许 HTTP
-            }
-            maven {
-                url "https://maven.aliyun.com/repository/google"
-                allowInsecureProtocol = true
-            }
-        }
-
-
-    }
-
-allprojects {
     repositories {
         google()
         mavenCentral()
-        // ... other repositories ...
+        gradlePluginPortal()
+        // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+            allowInsecureProtocol = true  // 允许 HTTP
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+            allowInsecureProtocol = true
+        }
+    }
+
+    dependencies {
+        // 构建脚本依赖
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+}
+
+// 其他配置
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
+}
+
+allprojects {
+    configurations.all {
+        resolutionStrategy {
+            // 强制使用特定版本
+            force 'org.dom4j:dom4j:2.1.3'
+            force 'com.sun.xml.bind:jaxb-impl:2.3.1'
+        }
+        
+        // 全局排除规则
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+        exclude group: 'xml-apis', module: 'xml-apis'
+        exclude group: 'pull-parser', module: 'pull-parser'
+        exclude group: 'dom4j', module: 'dom4j'
     }
 }
 

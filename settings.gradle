@@ -1,30 +1,24 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
-        // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
-        maven {
-            url "https://maven.aliyun.com/repository/public"
-            allowInsecureProtocol = true  // 允许 HTTP
-        }
-        maven {
-            url "https://maven.aliyun.com/repository/google"
-            allowInsecureProtocol = true
-        }
     }
+}
 
-
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        // 如果需要使用阿里云仓库或其他仓库
+        maven { url = uri("https://maven.aliyun.com/repository/public") }
+        maven { url = uri("https://maven.aliyun.com/repository/google") }
+    }
 }
 
 rootProject.name = "Assistant"
 include ':app'
-include ':image_analysis'
 include ':speech_recognition'
+include ':image_analysis'
 

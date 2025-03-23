@@ -5,48 +5,59 @@ plugins {
 
 android {
     namespace 'com.example.speech_recognition'
-    compileSdk 35
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 35
-        
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-    
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    
-    // 添加资源目录，确保 layout 文件能被引用
-    sourceSets {
-        main {
-            res.srcDirs = ['src/main/res']
-        }
+        jvmTarget = '17'
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.fragment:fragment-ktx:1.6.1'
+    // 基础库
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
     
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // 语音识别相关依赖
+    implementation(libs.mlkit.speech.recognition)
+    // 注意: 不要同时添加 com.google.android.gms:play-services-mlkit-language-id，避免依赖冲突
+    
+    // Firebase 相关
+    implementation(libs.firebase.firestore.ktx)
+    
+    // 测试依赖
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    
+    // 配置冲突解决
+    configurations.all {
+        // 排除冲突的 XML 相关库
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
+        exclude group: 'xml-apis', module: 'xml-apis'
+        // 排除语言识别冲突
+        exclude group: 'com.google.android.gms', module: 'play-services-mlkit-language-id'
+    }
+    
+    // 百度语音识别依赖
+    // 如果有本地依赖，使用下面的方式
+    // implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 } 
