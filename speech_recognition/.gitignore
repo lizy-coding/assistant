@@ -31,13 +31,12 @@ proguard/
 # 敏感信息
 api_keys.xml
 secrets.xml
-aliyun-credentials.properties
+baidu-credentials.properties
+google-services.json
 
-# 数据模型文件
-/sampledata/models/*.tflite
-/sampledata/models/*.pb
-/sampledata/models/*.mlmodel
-
-# 图片缓存
-.DS_Store
-/sampledata/cache/
+# 语音模型文件
+/src/main/assets/models/
+/libs/*.so
+/libs/*.aar
+# 但是保留libs目录
+!libs/.keep 

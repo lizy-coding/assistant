@@ -1,1 +1,58 @@
-/build
+# 构建产物
+/build/
+*.apk
+*.ap_
+*.aab
+*.aar
+
+# 编译产物
+*.dex
+*.class
+
+# 本地配置
+local.properties
+proguard/
+
+# 日志文件
+*.log
+
+# Android Studio导航编辑器临时文件
+.navigation/
+
+# 自动生成的资源文件
+gen/
+out/
+
+# 混淆映射文件
+/proguard_logs/
+mapping.txt
+seeds.txt
+unused.txt
+
+# 构建变体
+/release/
+/debug/
+
+# DEX 文件
+*.dex
+
+# Android Studio工作目录
+.idea/caches/
+.idea/libraries/
+.idea/shelf/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/jarRepositories.xml
+.idea/misc.xml
+
+# 敏感信息
+api_keys.xml
+secrets.xml
+signing.properties
+keystore.properties
+
+# Firebase配置
+app/google-services.json
