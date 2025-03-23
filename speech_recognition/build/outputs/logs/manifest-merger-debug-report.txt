@@ -1,16 +1,26 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml:2:13-83
-INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml:2:13-83
+ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:2:1-12:12
+INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:2:1-12:12
 	package
-		INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml
+		INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml:2:23-81
+		ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:4:5-71
+	android:name
+		ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:4:22-68
+uses-permission#android.permission.INTERNET
+ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:5:22-64
+application
+ADDED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml:8:5-10:19
 uses-sdk
-INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml reason: use-sdk injection requested
-INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml
-INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml
+INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml
+INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml
+		INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\desk\code\Assistant\speech_recognition\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17521022935187966577.xml
+		INJECTED from D:\desk\code\Assistant\speech_recognition\src\main\AndroidManifest.xml

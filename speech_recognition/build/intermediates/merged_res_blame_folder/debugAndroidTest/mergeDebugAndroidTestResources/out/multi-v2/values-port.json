@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.speech_recognition.test.speech_recognition-mergeDebugAndroidTestResources-1:/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "D:\\env\\gradle\\.gradle\\caches\\8.10.2\\transforms\\ef5f7da604ac27a8a8b94604fb294481\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

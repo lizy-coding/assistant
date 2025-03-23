@@ -26,6 +26,7 @@ exifinterface = "1.4.0"
 
 #百度
 speechrecognition = "16.0.0"
+firebaseFirestoreKtx = "25.1.2"
 
 
 
@@ -70,7 +71,8 @@ androidx-lifecycle-common-jvm = { group = "androidx.lifecycle", name = "lifecycl
 multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 
-mlkit-speech-recognition = { group = "com.google.mlkit", name = "speech-recognition", version = "speechrecognition" }
+mlkit-speech-recognition = { group = "com.google.mlkit", name = "speech-recognition", version.ref = "speechrecognition" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.speech_recognition.test.speech_recognition-mergeDebugAndroidTestResources-1:/values-v25/values-v25.xml",
+            "map": [
+                {
+                    "source": "D:\\env\\gradle\\.gradle\\caches\\8.10.2\\transforms\\ef5f7da604ac27a8a8b94604fb294481\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}

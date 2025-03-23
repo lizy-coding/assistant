@@ -1,1 +1,7 @@
 com.example.speech_recognition
+id button_layout
+id result_text_view
+id start_button
+id status_text_view
+id stop_button
+layout fragment_speech_recognition_demo

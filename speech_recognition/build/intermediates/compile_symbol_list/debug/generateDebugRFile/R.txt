@@ -1,0 +1,6 @@
+int id button_layout 0x0
+int id result_text_view 0x0
+int id start_button 0x0
+int id status_text_view 0x0
+int id stop_button 0x0
+int layout fragment_speech_recognition_demo 0x0

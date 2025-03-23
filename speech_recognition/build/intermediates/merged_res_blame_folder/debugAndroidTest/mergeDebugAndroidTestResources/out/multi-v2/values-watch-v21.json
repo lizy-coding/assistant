@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.speech_recognition.test.speech_recognition-mergeDebugAndroidTestResources-1:/values-watch-v21/values-watch-v21.xml",
+            "map": [
+                {
+                    "source": "D:\\env\\gradle\\.gradle\\caches\\8.10.2\\transforms\\ef5f7da604ac27a8a8b94604fb294481\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "from": {
+                        "startLines": "2,6,10",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,271,499",
+                        "endLines": "5,9,13",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "266,494,724"
+                    }
+                }
+            ]
+        }
+    ]
+}
