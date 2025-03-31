@@ -1,4 +1,4 @@
-# 图像分析模块 .gitignore
+# 生物识别模块 .gitignore
 
 # 构建产物
 /build/
@@ -59,20 +59,8 @@ obj/
 # 敏感信息
 api_keys.xml
 secrets.xml
-aliyun-credentials.properties
 /src/*/res/values/secrets.xml
 
 # 系统文件
 .DS_Store
-Thumbs.db
-
-# 数据模型文件
-/sampledata/models/*.tflite
-/sampledata/models/*.pb
-/sampledata/models/*.mlmodel
-/sampledata/cache/
-
-# 测试图像
-/sampledata/images/
-/sampledata/test_input/
-/sampledata/test_output/
+Thumbs.db 

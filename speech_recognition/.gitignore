@@ -1,42 +1,77 @@
+# 语音识别模块 .gitignore
+
 # 构建产物
 /build/
-*.aar
+/generated/
+/intermediates/
+/tmp/
 
-# 编译产物
+# 编译文件
+*.aar
+*.jar
 *.dex
 *.class
 
-# 本地配置
-local.properties
-
-# 日志文件
-*.log
-
-# Android Studio导航编辑器临时文件
-.navigation/
-
-# 自动生成的资源文件
+# 生成的文件
+bin/
 gen/
 out/
 
-# 混淆日志
+# 本地配置
+local.properties
+gradle.properties
+keystore.properties
+
+# 日志文件
+*.log
+logs/
+
+# Android Studio / IDEA
+*.iml
+.idea/
+.gradle/
+.navigation/
+captures/
+output.json
+
+# 混淆文件
 proguard/
+/proguard_logs/
+mapping.txt
+seeds.txt
+unused.txt
+
+# NDK 相关
+obj/
+.externalNativeBuild/
+.cxx/
+/libs/*.so
+*.so
+*.o
 
 # 临时文件
-/tmp
 *.tmp
 *.bak
 *.swp
+*~.nib
+/tmp/
 
 # 敏感信息
 api_keys.xml
 secrets.xml
+/src/*/res/values/secrets.xml
 baidu-credentials.properties
-google-services.json
+asr-keys.xml
 
-# 语音模型文件
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 语音模型和缓存
 /src/main/assets/models/
-/libs/*.so
-/libs/*.aar
-# 但是保留libs目录
-!libs/.keep 
+/src/main/assets/cache/
+/src/main/assets/temp/
+
+# 测试音频文件
+/src/test/resources/audio/
+/src/androidTest/resources/audio/ 

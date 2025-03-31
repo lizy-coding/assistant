@@ -1,58 +1,79 @@
+# 应用模块 .gitignore
+
 # 构建产物
 /build/
+/release/
+/debug/
+/generated/
+
+# 编译文件
 *.apk
 *.ap_
 *.aab
 *.aar
-
-# 编译产物
 *.dex
 *.class
 
-# 本地配置
-local.properties
-proguard/
-
-# 日志文件
-*.log
-
-# Android Studio导航编辑器临时文件
-.navigation/
-
-# 自动生成的资源文件
+# 生成的文件
+bin/
 gen/
 out/
 
-# 混淆映射文件
+# 本地配置
+local.properties
+gradle.properties
+/gradle/
+keystore.properties
+signing.properties
+
+# 日志文件
+*.log
+logs/
+
+# Android Studio / IDEA
+*.iml
+.idea/
+.gradle/
+.navigation/
+captures/
+output.json
+
+# 混淆文件
+proguard/
 /proguard_logs/
 mapping.txt
 seeds.txt
 unused.txt
 
-# 构建变体
-/release/
-/debug/
+# NDK 相关
+obj/
+.externalNativeBuild/
+.cxx/
+/libs/*.so
+*.so
+*.o
 
-# DEX 文件
-*.dex
-
-# Android Studio工作目录
-.idea/caches/
-.idea/libraries/
-.idea/shelf/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/jarRepositories.xml
-.idea/misc.xml
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~.nib
+/tmp/
 
 # 敏感信息
 api_keys.xml
 secrets.xml
-signing.properties
-keystore.properties
+google-services.json
+/src/*/res/values/secrets.xml
 
-# Firebase配置
-app/google-services.json
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# Lint
+/lint-report.html
+/lint-report.xml
+/lint-report_files/
+
+# Schema 文件
+/schema/

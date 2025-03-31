@@ -1,5 +1,6 @@
 package com.example.image_analysis
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +22,9 @@ class ImageAnalysisDemoFragment : Fragment() {
     
     private lateinit var imagePreview: ImageView
     private lateinit var textResult: TextView
+    
+    // 通过接口与Activity通信的回调
+    private var biometricCallback: BiometricCallback? = null
     
     // 用于接收相机 Activity 返回的结果
     private val cameraActivityResult = registerForActivityResult(
@@ -60,9 +64,25 @@ class ImageAnalysisDemoFragment : Fragment() {
                 // 显示选中的图片
                 imagePreview.setImageURI(it)
                 
-                // 启动图像分析
-                analyzeImage(it)
+                // 使用回调请求图像分析
+                if (biometricCallback != null) {
+                    biometricCallback?.requestImageAnalysisWithBiometric(it)
+                } else {
+                    // 如果没有回调，使用本地方法进行验证和分析
+                    verifyAndAnalyzeImage(it)
+                }
             }
+        }
+    }
+    
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // 尝试获取回调接口实现
+        if (context is BiometricCallback) {
+            biometricCallback = context
+            Log.d(TAG, "成功获取BiometricCallback")
+        } else {
+            Log.w(TAG, "宿主Activity未实现BiometricCallback接口")
         }
     }
     
@@ -90,19 +110,31 @@ class ImageAnalysisDemoFragment : Fragment() {
         val btnOpenCamera = view.findViewById<Button>(R.id.btn_open_camera)
         btnOpenCamera.setOnClickListener {
             Log.d(TAG, "点击打开相机按钮")
-            openCameraForImageRecognition()
+            if (biometricCallback != null) {
+                // 使用回调请求相机操作
+                biometricCallback?.requestCameraWithBiometric()
+            } else {
+                // 如果没有回调，使用本地方法
+                directOpenCamera()
+            }
         }
         
         // 设置从相册选择图片按钮点击事件
         val btnSelectImage = view.findViewById<Button>(R.id.btn_select_image)
         btnSelectImage.setOnClickListener {
             Log.d(TAG, "点击从相册选择图片按钮")
-            openGalleryForImageSelection()
+            if (biometricCallback != null) {
+                // 使用回调请求相册操作
+                biometricCallback?.requestGalleryWithBiometric()
+            } else {
+                // 如果没有回调，使用本地方法
+                verifyAndOpenGallery()
+            }
         }
     }
     
-    // 打开相机进行图像识别
-    private fun openCameraForImageRecognition() {
+    // 直接打开相机（当宿主Activity不实现BiometricCallback时的备用方案）
+    private fun directOpenCamera() {
         try {
             // 创建启动 CameraActivity 的 Intent
             val intent = Intent(requireContext(), CameraActivity::class.java)
@@ -113,14 +145,40 @@ class ImageAnalysisDemoFragment : Fragment() {
         }
     }
     
+    // 验证并打开相册
+    private fun verifyAndOpenGallery() {
+        BiometricInitializer.authenticateBeforeMethod(
+            requireActivity(),
+            "openGallery",
+            onSuccess = { openGalleryForImageSelection() },
+            onError = { errorCode, errorMessage ->
+                Log.e(TAG, "生物识别验证失败: $errorCode, $errorMessage")
+                Toast.makeText(requireContext(), "验证失败: $errorMessage", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
+    
     // 打开相册选择图片
-    private fun openGalleryForImageSelection() {
+    fun openGalleryForImageSelection() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         galleryPickerResult.launch(intent)
     }
     
+    // 验证并分析图片
+    private fun verifyAndAnalyzeImage(imageUri: Uri) {
+        BiometricInitializer.authenticateBeforeMethod(
+            requireActivity(),
+            "analyzeImage",
+            onSuccess = { analyzeImage(imageUri) },
+            onError = { errorCode, errorMessage ->
+                Log.e(TAG, "生物识别验证失败: $errorCode, $errorMessage")
+                Toast.makeText(requireContext(), "验证失败: $errorMessage", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
+    
     // 分析选中的图片
-    private fun analyzeImage(imageUri: Uri) {
+    fun analyzeImage(imageUri: Uri) {
         try {
             val intent = Intent(requireContext(), CameraActivity::class.java)
             intent.putExtra("IMAGE_URI", imageUri)
@@ -129,6 +187,11 @@ class ImageAnalysisDemoFragment : Fragment() {
             Log.e(TAG, "启动图像分析失败: ${e.message}")
             Toast.makeText(requireContext(), "无法进行图像分析", Toast.LENGTH_SHORT).show()
         }
+    }
+    
+    override fun onDetach() {
+        super.onDetach()
+        biometricCallback = null
     }
     
     override fun onDestroy() {

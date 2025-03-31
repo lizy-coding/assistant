@@ -36,7 +36,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     
     // 正确的语音识别依赖
-    implementation(libs.mlkit.speech.recognition)
+//    implementation(libs.mlkit.speech)
     
     // Firebase 相关
     implementation(libs.firebase.firestore.ktx)
@@ -50,7 +50,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     
     // 配置冲突解决
-    configurations.all {
+    configurations.configureEach {
         // 排除冲突的 XML 相关库
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
         exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'

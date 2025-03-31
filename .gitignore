@@ -1,15 +1,82 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# 项目级 .gitignore
+
+# Gradle 文件
+.gradle/
+build/
+/*/build/
+.externalNativeBuild/
+.cxx/
+captures/
+
+# 本地配置文件
 local.properties
+*.properties
+!gradle.properties
+
+# IDEA/Android Studio 项目文件
+*.iml
+*.iws
+*.ipr
+.idea/
+.navigation/
+output.json
+
+# Android Studio 捕获文件
+captures/
+
+# Keystore 文件
+*.jks
+*.keystore
+signing.properties
+
+# 外部 Native 构建文件夹
+.externalNativeBuild
+.cxx/
+
+# Google Services (例如Google Maps API)
+google-services.json
+GoogleService-Info.plist
+
+# 日志文件
+*.log
+logs/
+
+# OS 特定文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~.nib
+tmp/
+
+# 混淆文件
+proguard/
+
+# NDK
+obj/
+.externalNativeBuild
+
+# 依赖缓存
+.gradle/
+.gradletasknamecache
+
+# 敏感信息
+secrets.xml
+api_keys.xml
+*.key
+
+# 废弃的 APK 文件
+*.ap_
+*.apk
+*.aab
+release/
+debug/

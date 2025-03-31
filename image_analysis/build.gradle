@@ -47,31 +47,6 @@ android {
 
 }
 
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
-        // 阿里云仓库声明在后（防止镜像覆盖官方仓库）
-        maven {
-            url "https://maven.aliyun.com/repository/public"
-            allowInsecureProtocol = true  // 允许 HTTP
-        }
-        maven {
-            url "https://maven.aliyun.com/repository/google"
-            allowInsecureProtocol = true
-        }
-    }
-
-
-
-
-
 dependencies {
 
     implementation libs.androidx.core.ktx
@@ -90,6 +65,9 @@ dependencies {
     implementation libs.retrofit.gson
     implementation libs.okhttp
     implementation (libs.multidex)
+
+    // 添加生物识别模块依赖
+    implementation project(":biometric_auth")
 
     implementation (libs.image.sdk) {
         exclude group: 'com.aliyun', module: 'aliyun-java-sdk-oss' // 排除冲突模块
