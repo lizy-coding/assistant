@@ -6,12 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.biometric_auth.api.BiometricAuth
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+        // 设置ActionBar标题
+        supportActionBar?.title = "智能辅助工具"
 
         setupButtons()
     }
@@ -31,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         // 生物识别设置按钮
         findViewById<Button>(R.id.buttonBiometricSettings).setOnClickListener {
-            val intent = Intent(this, BiometricSettingsActivity::class.java)
-            startActivity(intent)
+            // 直接调用生物识别模块API启动指纹管理界面
+            BiometricAuth.startFingerprintManager(this)
         }
     }
 
@@ -44,8 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-                val intent = Intent(this, BiometricSettingsActivity::class.java)
-                startActivity(intent)
+                BiometricAuth.startFingerprintManager(this)
                 return true
             }
         }

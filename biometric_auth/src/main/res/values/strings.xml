@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 通用 -->
+    <string name="app_name">Biometric Auth</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="clear">清除</string>
+    
+    <!-- 指纹管理 -->
+    <string name="biometric_settings_title">生物识别设置</string>
+    <string name="fingerprint_management">指纹管理</string>
+    <string name="password_management">密码管理</string>
+    <string name="fingerprint_count">已存储 %1$d/5 个指纹</string>
+    <string name="fingerprint_count_default">已存储 0/5 个指纹</string>
+    <string name="add_fingerprint">添加指纹</string>
+    <string name="clear_all">清除所有</string>
+    <string name="fingerprint_max_limit">最多只能添加5个指纹</string>
+    <string name="fingerprint_item_name">指纹 %1$d</string>
+    <string name="fingerprint_name_placeholder">指纹名称</string>
+    <string name="fingerprint_icon">指纹图标</string>
+    
+    <!-- 删除指纹相关 -->
+    <string name="delete_fingerprint">删除指纹</string>
+    <string name="confirm_delete_fingerprint">确定要删除这个指纹吗？</string>
+    <string name="fingerprint_deleted">指纹已删除</string>
+    <string name="delete_failure">删除失败</string>
+    
+    <!-- 清除所有指纹 -->
+    <string name="clear_all_fingerprints">清除所有指纹</string>
+    <string name="confirm_clear_all_fingerprints">确定要清除所有已保存的指纹吗？此操作无法撤销。</string>
+    <string name="all_fingerprints_cleared">所有指纹已清除</string>
+    
+    <!-- 验证与消息 -->
+    <string name="verify_identity">请验证身份</string>
+    <string name="verify_to_add_fingerprint">使用已有指纹验证身份后添加新指纹</string>
+    <string name="fingerprint_add_success">指纹添加成功</string>
+    <string name="fingerprint_add_failure">指纹添加失败</string>
+    <string name="verification_failed">验证失败，请重试</string>
+    <string name="error_with_message">错误: %1$s</string>
+    
+    <!-- 密码管理 -->
+    <string name="change_password">修改密码</string>
+    <string name="password_change_description">更改您的安全密码，用于生物识别不可用时的备用认证方式</string>
+    <string name="password_change_not_implemented">密码修改功能待实现</string>
+</resources> 

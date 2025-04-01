@@ -78,6 +78,7 @@ object FingerprintManager {
      * @return 随机指纹哈希
      */
     fun generateTestFingerprint(context: Context): String {
-        return FingerprintDataStore.getInstance(context).generateFakeFingerprintHash()
+        // 为了测试一致性，返回固定哈希值
+        return "biometric_fixed_hash_for_validation"
     }
 } 

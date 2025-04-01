@@ -1,9 +1,9 @@
-package com.example.assistant.adapter
+package com.example.biometric_auth.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.assistant.databinding.ItemFingerprintBinding
+import com.example.biometric_auth.databinding.ItemFingerprintBinding
 
 /**
  * 指纹列表适配器

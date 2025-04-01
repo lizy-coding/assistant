@@ -119,14 +119,18 @@ class FingerprintDataStore private constructor(context: Context) {
      */
     fun verifyFingerprint(fingerprintHash: String): Boolean {
         val fingerprints = getAllFingerprints()
-        return fingerprints.contains(fingerprintHash)
+        val result = fingerprints.contains(fingerprintHash)
+        android.util.Log.d("FingerprintDataStore", "验证指纹: $fingerprintHash, 结果: $result, 存储的指纹: $fingerprints")
+        return result
     }
     
     /**
      * 检查指纹是否已存在
      */
     private fun isExistingFingerprint(fingerprintHash: String): Boolean {
-        return getAllFingerprints().contains(fingerprintHash)
+        val result = getAllFingerprints().contains(fingerprintHash)
+        android.util.Log.d("FingerprintDataStore", "检查指纹是否存在: $fingerprintHash, 结果: $result")
+        return result
     }
     
     /**

@@ -1,6 +1,7 @@
 package com.example.biometric_auth.api
 
 import android.content.Context
+import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import com.example.biometric_auth.annotation.BiometricAuthentication
 import com.example.biometric_auth.aspect.BiometricAspectConfig
@@ -110,5 +111,15 @@ object BiometricAuth {
      */
     fun getFingerprintManager(): FingerprintManager {
         return FingerprintManager
+    }
+    
+    /**
+     * 启动指纹管理界面
+     * 
+     * @param activity 当前活动
+     */
+    fun startFingerprintManager(activity: FragmentActivity) {
+        val intent = Intent(activity, com.example.biometric_auth.ui.FingerprintManagerActivity::class.java)
+        activity.startActivity(intent)
     }
 } 

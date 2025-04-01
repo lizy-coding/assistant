@@ -6,5 +6,10 @@
 
     <application>
         <!-- 模块不需要特定Activity -->
+        <activity
+            android:name=".ui.FingerprintManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BiometricAuth.NoActionBar">
+        </activity>
     </application>
 </manifest> 
