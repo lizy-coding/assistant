@@ -36,7 +36,7 @@ tasks.register('clean', Delete) {
 }
 
 allprojects {
-    configurations.all {
+    configurations.configureEach {
         resolutionStrategy {
             // 强制使用特定版本
             force 'org.dom4j:dom4j:2.1.3'

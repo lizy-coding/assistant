@@ -102,4 +102,13 @@ object BiometricAuth {
             activity, moduleName, methodName, onSuccess, onError
         )
     }
+    
+    /**
+     * 获取指纹管理API
+     * 
+     * @return 指纹管理器对象
+     */
+    fun getFingerprintManager(): FingerprintManager {
+        return FingerprintManager
+    }
 } 

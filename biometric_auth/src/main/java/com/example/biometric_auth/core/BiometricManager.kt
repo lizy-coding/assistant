@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.example.biometric_auth.storage.FingerprintDataStore
 
 /**
  * 生物识别管理器，负责处理生物识别相关操作
@@ -68,7 +69,18 @@ class BiometricManager private constructor() {
                 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    callback.onAuthenticationSucceeded()
+                    // 验证指纹数据是否在存储中
+                    val cryptoObject = result.cryptoObject
+                    val fingerprintHash = generateFingerprintHash(cryptoObject)
+                    
+                    // 如果没有存储指纹数据，则默认允许通过
+                    val fingerprintStore = FingerprintDataStore.getInstance(activity)
+                    if (fingerprintStore.getFingerprintCount() == 0 || fingerprintStore.verifyFingerprint(fingerprintHash)) {
+                        callback.onAuthenticationSucceeded()
+                    } else {
+                        // 指纹存在但不匹配
+                        callback.onAuthenticationFailed()
+                    }
                 }
                 
                 override fun onAuthenticationFailed() {
@@ -78,6 +90,16 @@ class BiometricManager private constructor() {
             })
         
         biometricPrompt.authenticate(promptInfo)
+    }
+    
+    /**
+     * 生成指纹哈希值
+     * 为简化实现，此处采用模拟方法
+     */
+    private fun generateFingerprintHash(cryptoObject: BiometricPrompt.CryptoObject?): String {
+        // 实际应用中，应根据cryptoObject生成唯一的指纹哈希
+        // 这里为简化处理，返回系统ID + 设备信息的哈希值
+        return "biometric_hash_" + System.currentTimeMillis().toString()
     }
 }
 

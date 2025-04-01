@@ -7,39 +7,51 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assistant 功能演示"
+        android:layout_marginTop="32dp"
+        android:text="智能辅助工具"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_speech_recognition"
+        android:id="@+id/buttonSpeechRecognition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="语音识别"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginEnd="32dp"
+        android:text="语音识别"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <Button
-        android:id="@+id/btn_image_analysis"
+        android:id="@+id/buttonImageAnalysis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="图像分析"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_speech_recognition"
+        android:layout_marginEnd="32dp"
+        android:text="图像分析"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSpeechRecognition" />
+
+    <Button
+        android:id="@+id/buttonBiometricSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="生物识别设置"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonImageAnalysis" />
 
 </androidx.constraintlayout.widget.ConstraintLayout> 

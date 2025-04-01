@@ -21,13 +21,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:theme="@style/Theme.Assistant"
         tools:replace="android:theme">
 
         <!-- 主界面 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Assistant">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -46,6 +47,16 @@
             android:name=".ImageAnalysisActivity"
             android:label="图像分析"
             android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".BiometricSettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Assistant.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
 
     </application>

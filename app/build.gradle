@@ -41,6 +41,7 @@ android {
     
     buildFeatures {
         compose true
+        viewBinding true
     }
     
     composeOptions {
@@ -83,6 +84,7 @@ dependencies {
     // 模块依赖
     implementation(project(":speech_recognition"))
     implementation(project(":image_analysis"))
+    implementation project(':biometric_auth')
     
     // 排除冲突的依赖
     configurations.configureEach {
@@ -102,6 +104,9 @@ dependencies {
         exclude group: 'pull-parser', module: 'pull-parser'
         exclude group: 'dom4j', module: 'dom4j'
     }
+
+    // 在依赖部分确保直接添加Material库
+    implementation 'com.google.android.material:material:1.11.0'
 }
 
 // 项目根目录/build.gradle
