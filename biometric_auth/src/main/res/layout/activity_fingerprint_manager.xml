@@ -71,6 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@null"
                     android:text="@string/add_fingerprint" />
 
                 <com.google.android.material.button.MaterialButton
@@ -79,6 +82,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@null"
                     android:text="@string/clear_all"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/biometric_error" />
@@ -122,6 +128,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@null"
                 android:text="@string/change_password" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -145,6 +154,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:stateListAnimator="@null"
             android:text="@string/test_verify"
             android:background="@drawable/button_accent" />
         

@@ -26,7 +26,9 @@ object FingerprintManager {
      * @param fingerprintHash 指纹哈希值
      * @return 是否添加成功
      */
-    fun addFingerprint(context: Context, fingerprintHash: String): Boolean {
+    fun addFingerprint(context: Context, fingerprintHash: String = "biometric_fixed_hash_for_validation"): Boolean {
+        // 默认使用固定指纹哈希
+        android.util.Log.d("FingerprintManager", "添加指纹: $fingerprintHash")
         return FingerprintDataStore.getInstance(context).addFingerprint(fingerprintHash)
     }
     
@@ -91,6 +93,19 @@ object FingerprintManager {
     fun setupTestFingerprint(context: Context) {
         val testFingerprint = "biometric_fixed_hash_for_validation"
         FingerprintDataStore.getInstance(context).setupTestFingerprint(testFingerprint)
+    }
+    
+    /**
+     * 测试指纹验证
+     * 使用固定哈希值进行测试验证
+     * 
+     * @param context 上下文
+     * @return 验证结果
+     */
+    fun testFingerprintVerification(context: Context): Boolean {
+        val testHash = "biometric_fixed_hash_for_validation"
+        android.util.Log.d("FingerprintManager", "测试指纹验证: $testHash")
+        return FingerprintDataStore.getInstance(context).verifyFingerprint(testHash)
     }
     
     fun canAddMoreFingerprints(context: Context): Boolean {

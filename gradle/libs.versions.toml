@@ -16,6 +16,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.2.1"
 # Retrofit官方最新版
+preferenceKtx = "1.2.1"
 retrofit = "2.11.0"
 camerax = "1.4.1"
 cameraLifecycle = "1.4.1"
@@ -43,6 +44,7 @@ androidx-camera-camera2-v132 = { module = "androidx.camera:camera-camera2", vers
 androidx-camera-lifecycle-v132 = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraLifecycleVersion" }
 androidx-camera-view-v132 = { module = "androidx.camera:camera-view", version.ref = "cameraViewVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 dom4j = { module = "org.dom4j:dom4j", version.ref = "dom4j" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

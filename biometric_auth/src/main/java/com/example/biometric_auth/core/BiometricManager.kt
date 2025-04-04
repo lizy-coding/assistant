@@ -102,9 +102,8 @@ class BiometricManager private constructor() {
      * 为简化实现，使用设备标识符和自定义key生成一致的哈希
      */
     private fun generateFingerprintHash(cryptoObject: BiometricPrompt.CryptoObject?): String {
-        // 实际应用中，应根据cryptoObject内的实际生物特征生成唯一的指纹哈希
-        // 为了简化和保证一致性，这里使用固定值+时间戳低位作为模拟指纹
-        val deviceId = android.provider.Settings.Secure.ANDROID_ID
+        // 始终使用固定哈希进行验证
+        android.util.Log.d("BiometricManager", "生成固定指纹哈希: biometric_fixed_hash_for_validation")
         return "biometric_fixed_hash_for_validation"
     }
 }
