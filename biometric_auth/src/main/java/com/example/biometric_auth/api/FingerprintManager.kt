@@ -81,4 +81,22 @@ object FingerprintManager {
         // 为了测试一致性，返回固定哈希值
         return "biometric_fixed_hash_for_validation"
     }
-} 
+    
+    /**
+     * 设置测试指纹（清除所有指纹后添加一个指定的测试指纹）
+     * 
+     * @param context 上下文
+     * @param fingerprintHash 测试指纹哈希值
+     */
+    fun setupTestFingerprint(context: Context) {
+        val testFingerprint = "biometric_fixed_hash_for_validation"
+        FingerprintDataStore.getInstance(context).setupTestFingerprint(testFingerprint)
+    }
+    
+    fun canAddMoreFingerprints(context: Context): Boolean {
+        return getFingerprintCount(context) < MAX_FINGERPRINTS
+    }
+    const val MAX_FINGERPRINTS = 5
+
+
+}

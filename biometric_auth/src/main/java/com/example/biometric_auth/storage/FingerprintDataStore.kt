@@ -58,12 +58,16 @@ class FingerprintDataStore private constructor(context: Context) {
         val currentCount = getFingerprintCount()
         
         if (currentCount >= MAX_FINGERPRINTS) {
+            android.util.Log.w("FingerprintDataStore", "添加指纹失败: 达到最大数量限制 ($MAX_FINGERPRINTS)")
             return false
         }
         
         if (isExistingFingerprint(fingerprintHash)) {
+            android.util.Log.w("FingerprintDataStore", "添加指纹失败: 指纹已存在 ($fingerprintHash)")
             return false
         }
+        
+        android.util.Log.d("FingerprintDataStore", "正在添加指纹: $fingerprintHash, 当前索引: $currentCount")
         
         preferences.edit {
             putString("$KEY_FINGERPRINT_PREFIX$currentCount", fingerprintHash)
@@ -138,5 +142,23 @@ class FingerprintDataStore private constructor(context: Context) {
      */
     fun generateFakeFingerprintHash(): String {
         return UUID.randomUUID().toString()
+    }
+    
+    /**
+     * 清除所有指纹数据后添加一个测试指纹（仅用于测试）
+     * 
+     * @param fingerprintHash 测试指纹哈希值
+     */
+    fun setupTestFingerprint(fingerprintHash: String) {
+        // 先清除所有指纹
+        clearAllFingerprints()
+        
+        // 添加测试指纹
+        preferences.edit {
+            putString("${KEY_FINGERPRINT_PREFIX}0", fingerprintHash)
+            putInt(KEY_FINGERPRINT_COUNT, 1)
+        }
+        
+        android.util.Log.d("FingerprintDataStore", "已设置测试指纹: $fingerprintHash")
     }
 } 

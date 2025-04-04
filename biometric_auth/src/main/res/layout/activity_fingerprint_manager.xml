@@ -145,8 +145,20 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="测试验证"
+            android:text="@string/test_verify"
             android:background="@drawable/button_accent" />
+        
+        <!-- 测试按钮提示 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/test_fingerprint_hint"
+            android:textColor="@android:color/darker_gray" />
 
     </LinearLayout>
 

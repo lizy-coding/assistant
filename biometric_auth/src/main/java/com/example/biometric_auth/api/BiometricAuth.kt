@@ -119,7 +119,8 @@ object BiometricAuth {
      * @param activity 当前活动
      */
     fun startFingerprintManager(activity: FragmentActivity) {
+        // 直接启动界面，验证逻辑由界面自身处理
         val intent = Intent(activity, com.example.biometric_auth.ui.FingerprintManagerActivity::class.java)
         activity.startActivity(intent)
     }
-} 
+}
