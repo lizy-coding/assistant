@@ -23,4 +23,5 @@ include ':app'
 include ':speech_recognition'
 include ':image_analysis'
 include ':biometric_auth'
+include ':push_notification'
 

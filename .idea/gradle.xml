@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/biometric_auth" />
             <option value="$PROJECT_DIR$/image_analysis" />
+            <option value="$PROJECT_DIR$/push_notification" />
             <option value="$PROJECT_DIR$/speech_recognition" />
           </set>
         </option>

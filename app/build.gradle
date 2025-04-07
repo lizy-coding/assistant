@@ -85,6 +85,7 @@ dependencies {
     implementation(project(":speech_recognition"))
     implementation(project(":image_analysis"))
     implementation project(':biometric_auth')
+    implementation project(':push_notification')
     
     // 排除冲突的依赖
     configurations.configureEach {
@@ -106,7 +107,7 @@ dependencies {
     }
 
     // 在依赖部分确保直接添加Material库
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation libs.material
 }
 
 // 项目根目录/build.gradle
