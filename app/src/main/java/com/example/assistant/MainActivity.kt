@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.biometric_auth.api.BiometricAuth
+import com.example.push_notification.api.PushNotificationApi
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         // 设置ActionBar标题
         supportActionBar?.title = "智能辅助工具"
 
+        // 初始化推送通知模块
+        PushNotificationApi.initialize(this)
+        
         setupButtons()
     }
 
@@ -38,6 +42,19 @@ class MainActivity : AppCompatActivity() {
             // 直接调用生物识别模块API启动指纹管理界面
             BiometricAuth.startFingerprintManager(this)
         }
+        
+        // 添加推送通知设置按钮（如果布局中存在）
+        findViewById<Button>(R.id.buttonNotificationSettings)?.setOnClickListener {
+            openNotificationSettings()
+        }
+    }
+
+    /**
+     * 打开推送通知设置界面
+     */
+    private fun openNotificationSettings() {
+        // 使用推送通知模块API启动设置界面
+        PushNotificationApi.startNotificationSettingsActivity(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,12 +63,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> {
-                BiometricAuth.startFingerprintManager(this)
-                return true
+        return when (item.itemId) {
+            R.id.menu_settings -> {
+                // 打开设置界面
+                true
             }
+            R.id.menu_notification_settings -> {
+                // 打开推送通知设置
+                openNotificationSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

@@ -59,6 +59,19 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <!-- 添加推送通知设置Activity -->
+        <activity
+            android:name=".NotificationSettingsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            <!-- 可以通过特定的Intent过滤器启动 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="app" android:host="notification_settings" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
