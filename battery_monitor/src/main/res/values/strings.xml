@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="battery_monitor_module_name">Battery Monitor</string>
+    <string name="battery_level">电量: %1$d%%</string>
+    <string name="battery_charging">充电中</string>
+    <string name="battery_discharging">未充电</string>
+    <string name="battery_temperature">温度: %1$.1f°C</string>
+    <string name="battery_voltage">电压: %1$.1fV</string>
+    <string name="battery_technology">电池技术: %1$s</string>
+    <string name="battery_health">电池健康: %1$s</string>
+</resources> 

@@ -100,7 +100,7 @@ class NotificationSettingsActivity : AppCompatActivity() {
         // 提示用户
         Toast.makeText(
             this, 
-            "推送通知已设置，将在${delayMinutes}分钟后发送", 
+            "推送通知已设置，将在${delayMinutes}分钟后发送",
             Toast.LENGTH_LONG
         ).show()
         

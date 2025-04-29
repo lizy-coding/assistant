@@ -86,6 +86,7 @@ dependencies {
     implementation(project(":image_analysis"))
     implementation project(':biometric_auth')
     implementation project(':push_notification')
+    implementation project(':battery_monitor')
     
     // 排除冲突的依赖
     configurations.configureEach {
@@ -97,7 +98,7 @@ dependencies {
     // 可选：强制使用更高版本
     implementation libs.dom4j
 
-    configurations.all {
+    configurations.configureEach {
         // 排除冲突的 XML 相关库
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
         exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
