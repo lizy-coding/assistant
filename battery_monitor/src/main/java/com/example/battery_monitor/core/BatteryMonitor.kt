@@ -3,6 +3,7 @@ package com.example.battery_monitor.core
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.core.content.ContextCompat
 import com.example.battery_monitor.model.BatteryInfo
 import com.example.battery_monitor.utils.BatteryUtils
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +39,12 @@ object BatteryMonitor {
         // 创建并注册广播接收器
         receiver = BatteryReceiver()
         val intentFilter = BatteryUtils.createBatteryIntentFilter()
-        context.applicationContext.registerReceiver(receiver, intentFilter)
+        ContextCompat.registerReceiver(
+            context.applicationContext,
+            receiver,
+            intentFilter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
         isRegistered = true
 
         // 请求一次电池状态更新

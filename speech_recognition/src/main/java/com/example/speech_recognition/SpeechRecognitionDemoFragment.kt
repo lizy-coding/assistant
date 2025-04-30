@@ -1,6 +1,7 @@
 package com.example.speech_recognition
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -88,6 +89,7 @@ class SpeechRecognitionDemoFragment : Fragment(), SpeechRecognitionCallback {
         }
     }
     
+    @SuppressLint("SetTextI18n")
     override fun onPartialResult(result: String) {
         Log.d(TAG, "部分识别结果: $result")
         activity?.runOnUiThread {
@@ -95,6 +97,7 @@ class SpeechRecognitionDemoFragment : Fragment(), SpeechRecognitionCallback {
         }
     }
     
+    @SuppressLint("SetTextI18n")
     override fun onResult(result: String) {
         Log.d(TAG, "最终识别结果: $result")
         activity?.runOnUiThread {

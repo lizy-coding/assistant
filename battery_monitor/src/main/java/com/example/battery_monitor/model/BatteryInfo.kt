@@ -37,7 +37,7 @@ enum class BatteryHealth(val value: Int, val description: String) {
 
     companion object {
         fun fromValue(value: Int): BatteryHealth {
-            return values().find { it.value == value } ?: UNKNOWN
+            return BatteryHealth.entries.find { it.value == value } ?: UNKNOWN
         }
     }
 }
@@ -55,7 +55,7 @@ enum class ChargingSource(val value: Int, val description: String) {
 
     companion object {
         fun fromValue(value: Int): ChargingSource {
-            return values().find { it.value == value } ?: UNKNOWN
+            return ChargingSource.entries.find { it.value == value } ?: UNKNOWN
         }
     }
 } 

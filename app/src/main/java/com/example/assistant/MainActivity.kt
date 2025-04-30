@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonNotificationSettings)?.setOnClickListener {
             openNotificationSettings()
         }
+        
+        // 电池监控按钮
+        findViewById<Button>(R.id.buttonBatteryMonitor)?.setOnClickListener {
+            val intent = Intent(this, BatteryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**

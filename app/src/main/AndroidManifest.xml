@@ -72,6 +72,18 @@
             </intent-filter>
         </activity>
 
+        <!-- 电池监控界面 -->
+        <activity
+            android:name=".BatteryActivity"
+            android:exported="false"
+            android:label="电池监控"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

@@ -72,6 +72,8 @@ dependencies {
     // 明确添加 Compose Runtime
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.material)
+    // 添加 ViewModel Compose 依赖
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
     
     // 测试库
     testImplementation(libs.junit)

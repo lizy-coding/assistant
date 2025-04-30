@@ -117,7 +117,7 @@ fun BatteryInfoCard(info: BatteryInfo) {
             Spacer(modifier = Modifier.height(8.dp))
             
             LinearProgressIndicator(
-                progress = { info.level / 100f },
+                progress = info.level / 100f,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(12.dp),
