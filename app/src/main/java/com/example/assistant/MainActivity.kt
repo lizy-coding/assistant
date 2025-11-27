@@ -2,14 +2,14 @@ package com.example.assistant
 
 import android.os.Bundle
 import android.content.Intent
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.fragment.app.FragmentActivity
 import androidx.compose.material3.MaterialTheme
 import com.example.assistant.ui.AssistantApp
 import com.example.biometric_auth.api.BiometricAuth
 import com.example.push_notification.api.PushNotificationApi
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
