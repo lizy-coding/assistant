@@ -69,9 +69,12 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     // 明确添加 Compose Runtime
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.material)
+    // Material 图标
+    implementation "androidx.compose.material:material-icons-extended"
     // 添加 ViewModel Compose 依赖
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
     

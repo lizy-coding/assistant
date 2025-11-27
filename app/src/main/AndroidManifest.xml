@@ -63,7 +63,7 @@
         <activity
             android:name=".NotificationSettingsActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/Theme.Assistant">
             <!-- 可以通过特定的Intent过滤器启动 -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -77,7 +77,7 @@
             android:name=".BatteryActivity"
             android:exported="false"
             android:label="电池监控"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.Assistant"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
