@@ -36,6 +36,7 @@ dependencies {
     implementation libs.material.v1110
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.firebase.messaging
+    implementation libs.kotlinx.coroutines.core
     
     // Koin依赖注入
     implementation libs.insert.koin.koin.android

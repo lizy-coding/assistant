@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.Intent
 import com.example.push_notification.PushNotificationInitializer
 import com.example.push_notification.PushNotificationManager
+import com.example.push_notification.data.model.NotificationData
+import com.example.push_notification.data.repository.NotificationRepository
+import kotlinx.coroutines.flow.StateFlow
+import org.koin.core.context.GlobalContext
 
 /**
  * 推送通知模块对外API
@@ -29,14 +33,26 @@ object PushNotificationApi {
      * @param message 通知内容
      */
     fun sendNotification(context: Context, title: String, message: String) {
+        val appContext = context.applicationContext
         // 确保模块已初始化
-        initialize(context)
-        
+        initialize(appContext)
+
+        val notificationId = System.currentTimeMillis().toInt()
+        val notification = NotificationData(
+            id = notificationId.toString(),
+            title = title,
+            message = message,
+            timestamp = System.currentTimeMillis()
+        )
+        // 记录推送中心数据
+        getRepository().addNotification(notification)
+
         // 直接显示通知
         PushNotificationManager.showNotification(
-            context = context,
+            context = appContext,
             title = title,
-            message = message
+            message = message,
+            notificationId = notificationId
         )
     }
 
@@ -60,6 +76,7 @@ object PushNotificationApi {
                 title = title,
                 message = message
             )
+            return
         }
         // 确保模块已初始化
         initialize(context)
@@ -84,10 +101,31 @@ object PushNotificationApi {
         
         // 通过Intent启动Activity
         try {
-            val intent = Intent(context, Class.forName("com.example.assistant.NotificationSettingsActivity"))
+            val intent = Intent(context, Class.forName("com.example.assistant.ui.notification.NotificationSettingsActivity"))
             context.startActivity(intent)
         } catch (e: Exception) {
             android.util.Log.e("PushNotificationApi", "启动通知设置界面失败", e)
         }
+    }
+
+    /**
+     * 观察推送中心消息数量
+     */
+    fun observeNotificationCount(context: Context): StateFlow<Int> {
+        return getRepository(context).notificationCount
+    }
+
+    /**
+     * 获取当前推送中心消息数量
+     */
+    fun getNotificationCount(context: Context): Int {
+        return getRepository(context).getNotificationCount()
+    }
+
+    private fun getRepository(context: Context? = null): NotificationRepository {
+        context?.let { initialize(it) }
+        val koin = GlobalContext.getOrNull()
+            ?: throw IllegalStateException("PushNotificationInitializer is not started. Call initialize(context) first.")
+        return koin.get()
     }
 } 

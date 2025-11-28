@@ -1,11 +1,11 @@
-package com.example.assistant.notification
+package com.example.assistant.ui.notification
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.push_notification.api.PushNotificationApi
+import com.example.assistant.domain.push.ScheduleNotificationUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,14 +21,13 @@ data class NotificationSettingsUiState(
     val delayMinutes: Float = 10f
 )
 
-class NotificationSettingsViewModel(application: Application) : AndroidViewModel(application) {
+class NotificationSettingsViewModel(
+    application: Application,
+    private val scheduleNotificationUseCase: ScheduleNotificationUseCase = ScheduleNotificationUseCase(application)
+) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(NotificationSettingsUiState())
     val uiState: StateFlow<NotificationSettingsUiState> = _uiState.asStateFlow()
-
-    init {
-        PushNotificationApi.initialize(application.applicationContext)
-    }
 
     fun updateTitle(title: String) {
         _uiState.update { it.copy(title = title) }
@@ -47,19 +46,15 @@ class NotificationSettingsViewModel(application: Application) : AndroidViewModel
      */
     fun scheduleNotification(): Boolean {
         val state = _uiState.value
-        if (state.title.isBlank() || state.message.isBlank()) {
-            return false
-        }
-
-        PushNotificationApi.scheduleNotification(
-            context = getApplication(),
+        val success = scheduleNotificationUseCase(
             title = state.title,
             message = state.message,
             delayMinutes = state.delayMinutes.roundToInt()
         )
-
-        _uiState.update { it.copy(title = "", message = "") }
-        return true
+        if (success) {
+            _uiState.update { it.copy(title = "", message = "") }
+        }
+        return success
     }
 
     companion object {

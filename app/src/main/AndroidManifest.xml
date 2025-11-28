@@ -26,7 +26,7 @@
 
         <!-- 主界面 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Assistant">
             <intent-filter>
@@ -37,31 +37,31 @@
 
         <!-- 语音识别入口 -->
         <activity
-            android:name=".SpeechRecognitionActivity"
+            android:name=".ui.speech.SpeechRecognitionActivity"
             android:label="语音识别"
             android:exported="false">
         </activity>
 
         <!-- 图像分析入口 -->
         <activity
-            android:name=".ImageAnalysisActivity"
+            android:name=".ui.image.ImageAnalysisActivity"
             android:label="图像分析"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".BiometricSettingsActivity"
+            android:name=".ui.biometric.BiometricSettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.Assistant.NoActionBar"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
 
         <!-- 添加推送通知设置Activity -->
         <activity
-            android:name=".NotificationSettingsActivity"
+            android:name=".ui.notification.NotificationSettingsActivity"
             android:exported="true"
             android:theme="@style/Theme.Assistant">
             <!-- 可以通过特定的Intent过滤器启动 -->
@@ -74,14 +74,14 @@
 
         <!-- 电池监控界面 -->
         <activity
-            android:name=".BatteryActivity"
+            android:name=".ui.battery.BatteryActivity"
             android:exported="false"
             android:label="电池监控"
             android:theme="@style/Theme.Assistant"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
 
     </application>

@@ -1,9 +1,10 @@
-package com.example.assistant
+package com.example.assistant.ui.speech
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assistant.R
 import com.example.speech_recognition.SpeechRecognitionDemoFragment
 
 class SpeechRecognitionActivity : AppCompatActivity() {

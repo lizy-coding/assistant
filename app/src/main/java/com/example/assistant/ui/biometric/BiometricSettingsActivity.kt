@@ -1,4 +1,4 @@
-package com.example.assistant
+package com.example.assistant.ui.biometric
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
