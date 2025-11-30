@@ -1,10 +1,9 @@
-package com.example.assistant
+package com.example.assistant.ui.notification
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
-import com.example.assistant.notification.NotificationSettingsScreen
 
 /**
  * 推送通知设置界面

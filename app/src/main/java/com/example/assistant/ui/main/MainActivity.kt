@@ -1,11 +1,12 @@
-package com.example.assistant
+package com.example.assistant.ui.main
 
 import android.os.Bundle
 import android.content.Intent
 import androidx.activity.compose.setContent
 import androidx.fragment.app.FragmentActivity
 import androidx.compose.material3.MaterialTheme
-import com.example.assistant.ui.AssistantApp
+import com.example.assistant.ui.image.ImageAnalysisActivity
+import com.example.assistant.ui.speech.SpeechRecognitionActivity
 import com.example.biometric_auth.api.BiometricAuth
 import com.example.push_notification.api.PushNotificationApi
 

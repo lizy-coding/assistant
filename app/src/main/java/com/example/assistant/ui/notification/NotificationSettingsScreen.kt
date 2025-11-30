@@ -1,4 +1,4 @@
-package com.example.assistant.notification
+package com.example.assistant.ui.notification
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

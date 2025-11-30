@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/image_analysis" />
             <option value="$PROJECT_DIR$/push_notification" />
             <option value="$PROJECT_DIR$/speech_recognition" />
+            <option value="$PROJECT_DIR$/wake_on_lan" />
           </set>
         </option>
       </GradleProjectSettings>

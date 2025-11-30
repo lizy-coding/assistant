@@ -1,4 +1,4 @@
-package com.example.assistant.battery
+package com.example.assistant.ui.battery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -27,7 +27,7 @@ import java.util.*
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BatteryScreen(viewModel: BatteryViewModel = viewModel()) {
+fun BatteryScreen(viewModel: BatteryViewModel = viewModel(factory = BatteryViewModel.Factory)) {
     val batteryState by viewModel.batteryState.collectAsState()
     val batteryHistory by viewModel.batteryHistory.collectAsState()
 

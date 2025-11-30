@@ -1,10 +1,11 @@
-package com.example.assistant
+package com.example.assistant.ui.image
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assistant.R
 import com.example.image_analysis.BiometricInitializer
 import com.example.image_analysis.CameraActivity
 import com.example.image_analysis.ImageAnalysisDemoFragment

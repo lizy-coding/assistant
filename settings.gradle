@@ -25,4 +25,4 @@ include ':image_analysis'
 include ':biometric_auth'
 include ':push_notification'
 include ':battery_monitor'
-
+include ':wake_on_lan'
