@@ -1,7 +1,7 @@
 // 简化的 build.gradle 文件
 buildscript {
     ext {
-        kotlin_version = '1.8.21'  // 根据需要调整 Kotlin 版本
+        kotlin_version = '1.9.22'  // Kotlin aligned with Compose compiler 1.5.11
     }
 
     repositories {

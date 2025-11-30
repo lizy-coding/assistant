@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Biotech
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.PowerSettingsNew
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -47,6 +48,7 @@ import com.example.assistant.domain.dashboard.DashboardState
 import com.example.assistant.ui.battery.BatteryScreen
 import com.example.assistant.ui.home.HomeViewModel
 import com.example.assistant.ui.notification.NotificationSettingsScreen
+import com.example.assistant.ui.wol.WakeOnLanScreen
 
 /**
  * 应用的导航目的地
@@ -54,7 +56,8 @@ import com.example.assistant.ui.notification.NotificationSettingsScreen
 private enum class AssistantDestination(val route: String) {
     Home("home"),
     NotificationSettings("notification_settings"),
-    Battery("battery")
+    Battery("battery"),
+    WakeOnLan("wake_on_lan")
 }
 
 @Composable
@@ -78,6 +81,9 @@ fun AssistantApp(
                 },
                 onOpenBatteryMonitor = {
                     navController.navigate(AssistantDestination.Battery.route)
+                },
+                onOpenWakeOnLan = {
+                    navController.navigate(AssistantDestination.WakeOnLan.route)
                 }
             )
         }
@@ -90,6 +96,10 @@ fun AssistantApp(
 
         composable(AssistantDestination.Battery.route) {
             BatteryScreen()
+        }
+
+        composable(AssistantDestination.WakeOnLan.route) {
+            WakeOnLanScreen()
         }
     }
 }
@@ -109,6 +119,7 @@ private fun HomeScreen(
     onOpenBiometricSettings: () -> Unit,
     onOpenNotificationSettings: () -> Unit,
     onOpenBatteryMonitor: () -> Unit,
+    onOpenWakeOnLan: () -> Unit,
     viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
 ) {
     val dashboardState by viewModel.dashboardState.collectAsState()
@@ -143,6 +154,12 @@ private fun HomeScreen(
             description = "通过Compose界面查看电池状态与历史",
             icon = { Icon(Icons.Default.BatteryFull, contentDescription = null) },
             onClick = onOpenBatteryMonitor
+        ),
+        AssistantFeature(
+            title = "局域网唤醒",
+            description = "发送Magic Packet唤醒局域网设备",
+            icon = { Icon(Icons.Default.PowerSettingsNew, contentDescription = null) },
+            onClick = onOpenWakeOnLan
         )
     )
 
