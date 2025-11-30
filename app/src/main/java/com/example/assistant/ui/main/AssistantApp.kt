@@ -25,6 +25,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -238,11 +239,13 @@ private fun DashboardCard(
                         fontWeight = FontWeight.Bold
                     )
                     LinearProgressIndicator(
-                        progress = batteryLevel / 100f,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(10.dp),
-                        color = MaterialTheme.colorScheme.primary
+                    progress = { batteryLevel / 100f },
+                    modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(10.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = COMPILED_CODE,
+                    strokeCap = COMPILED_CODE,
                     )
                     Text(
                         text = batteryInfo?.let {
@@ -257,11 +260,11 @@ private fun DashboardCard(
                         )
                     }
                 }
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier
                         .height(96.dp)
                         .width(1.dp),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
+                    thickness = COMPILED_CODE, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
                 )
                 Column(
                     modifier = Modifier.weight(1f),
